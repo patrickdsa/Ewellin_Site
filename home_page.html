@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-br">
+
+<head>
+    <script id="aura-supabase-token-firewall">(function () {
+            if (window.__AURA_SUPABASE_FIREWALL__) return;
+            window.__AURA_SUPABASE_FIREWALL__ = true;
+
+            var SUPABASE_HOST = "hoirqrkdgbmvpwutwuwj.supabase.co";
+            var BLOCKED_KEY_PATTERNS = [
+                /^sb-[a-z0-9-]+-auth-token$/i,
+                /^supabase\.auth\.token$/i
+            ];
+
+            function isBlockedStorageKey(key) {
+                if (typeof key !== "string") return false;
+                for (var i = 0; i < BLOCKED_KEY_PATTERNS.length; i++) {
+                    if (BLOCKED_KEY_PATTERNS[i].test(key)) return true;
+                }
+                return false;
+            }
+
+            function toAbsoluteUrl(input) {
+                try {
+                    return new URL(input, window.location.href);
+                } catch {
+                    return null;
+                }
+            }
+
+            function isSupabaseDestination(input) {
+                var parsed = toAbsoluteUrl(input);
+                if (!parsed) return false;
+                if (SUPABASE_HOST && parsed.host === SUPABASE_HOST) return true;
+                return parsed.host.endsWith(".supabase.co");
+            }
+
+            function pathLooksSensitive(input) {
+                var parsed = toAbsoluteUrl(input);
+                if (!parsed) return false;
+                return /^\/(auth|rest|functions)\/v1\//.test(parsed.pathname || "");
+            }
+
+            function headersContainAuth(headersLike) {
+                if (!headersLike) return false;
+
+                try {
+                    if (typeof Headers !== "undefined" && headersLike instanceof Headers) {
+                        return !!(headersLike.get("authorization") || headersLike.get("apikey"));
+                    }
+                } catch { }
+
+                if (Array.isArray(headersLike)) {
+                    for (var i = 0; i < headersLike.length; i++) {
+                        var pair = headersLike[i] || [];
+                        var name = String(pair[0] || "").toLowerCase();
+                        if (name === "authorization" || name === "apikey") return true;
+                    }
+                    return false;
+                }
+
+                if (typeof headersLike === "object") {
+                    var keys = Object.keys(headersLike);
+                    for (var j = 0; j < keys.length; j++) {
+                        var k = keys[j].toLowerCase();
+                        if (k === "authorization" || k === "apikey") return true;
+                    }
+                }
+                return false;
+            }
+
+            function requestLooksSensitive(input, init, extraHeaders) {
+                var url = "";
+                try {
+                    if (typeof input === "string") {
+                        url = input;
+                    } else if (input && typeof input.url === "string") {
+                        url = input.url;
+                    }
+                } catch { }
+
+                var headers =
+                    (init && init.headers) ||
+                    (input && input.headers) ||
+                    extraHeaders ||
+                    null;
+                var hasAuthHeaders = headersContainAuth(headers);
+                if (hasAuthHeaders) return true;
+
+                if (!url) return false;
+                if (isSupabaseDestination(url) && pathLooksSensitive(url)) return true;
+                return false;
+            }
+
+            function patchStorage(storage, storageName) {
+                if (!storage) return;
+                var proto = Object.getPrototypeOf(storage);
+                if (!proto || proto.__auraSupabaseFirewallPatched) return;
+
+                var rawGetItem = proto.getItem;
+                var rawSetItem = proto.setItem;
+                var rawRemoveItem = proto.removeItem;
+                var rawKey = proto.key;
+                var rawLengthDescriptor = Object.getOwnPropertyDescriptor(proto, "length");
+                var rawLengthGet = rawLengthDescriptor && rawLengthDescriptor.get;
+
+                function getRawLength(instance) {
+                    try {
+                        if (rawLengthGet) return Number(rawLengthGet.call(instance) || 0);
+                    } catch { }
+                    try {
+                        return Number(instance.length || 0);
+                    } catch { }
+                    return 0;
+                }
+
+                function getVisibleKeys(instance) {
+                    var visible = [];
+                    var total = getRawLength(instance);
+                    for (var i = 0; i < total; i++) {
+                        var currentKey = rawKey.call(instance, i);
+                        if (currentKey && !isBlockedStorageKey(currentKey)) {
+                            visible.push(currentKey);
+                        }
+                    }
+                    return visible;
+                }
+
+                function maskBlockedKeyProperty(instance, keyName) {
+                    if (!keyName || !isBlockedStorageKey(keyName)) return;
+                    try {
+                        Object.defineProperty(instance, keyName, {
+                            configurable: true,
+                            enumerable: false,
+                            get: function () {
+                                return null;
+                            },
+                            set: function () {
+                                return true;
+                            }
+                        });
+                    } catch { }
+                }
+
+                function syncBlockedKeyProperties(instance) {
+                    var total = getRawLength(instance);
+                    for (var i = 0; i < total; i++) {
+                        var k = rawKey.call(instance, i);
+                        if (k) maskBlockedKeyProperty(instance, k);
+                    }
+                }
+
+                proto.getItem = function (key) {
+                    syncBlockedKeyProperties(this);
+                    if (isBlockedStorageKey(String(key))) return null;
+                    return rawGetItem.call(this, key);
+                };
+
+                proto.setItem = function (key, value) {
+                    if (isBlockedStorageKey(String(key))) return;
+                    return rawSetItem.call(this, key, value);
+                };
+
+                proto.removeItem = function (key) {
+                    if (isBlockedStorageKey(String(key))) return;
+                    return rawRemoveItem.call(this, key);
+                };
+
+                proto.key = function (index) {
+                    syncBlockedKeyProperties(this);
+                    var visible = getVisibleKeys(this);
+                    return visible[index] || null;
+                };
+
+                try {
+                    Object.defineProperty(proto, "length", {
+                        configurable: true,
+                        enumerable: false,
+                        get: function () {
+                            syncBlockedKeyProperties(this);
+                            return getVisibleKeys(this).length;
+                        }
+                    });
+                } catch { }
+
+                var proxyStorage = null;
+                try {
+                    proxyStorage = new Proxy(storage, {
+                        get: function (target, prop) {
+                            if (typeof prop === "string" && isBlockedStorageKey(prop)) return null;
+                            if (prop === "length") return getVisibleKeys(target).length;
+                            if (prop === "key") {
+                                return function (index) {
+                                    var visible = getVisibleKeys(target);
+                                    return visible[index] || null;
+                                };
+                            }
+
+                            var value = target[prop];
+                            if (typeof value === "function") return value.bind(target);
+                            return value;
+                        },
+                        set: function (target, prop, value) {
+                            if (typeof prop === "string" && isBlockedStorageKey(prop)) return true;
+                            target[prop] = value;
+                            return true;
+                        },
+                        has: function (target, prop) {
+                            if (typeof prop === "string" && isBlockedStorageKey(prop)) return false;
+                            return prop in target;
+                        },
+                        ownKeys: function (target) {
+                            return getVisibleKeys(target);
+                        },
+                        getOwnPropertyDescriptor: function (target, prop) {
+                            if (typeof prop === "string" && isBlockedStorageKey(prop)) {
+                                return undefined;
+                            }
+                            if (prop === "length") {
+                                return {
+                                    configurable: true,
+                                    enumerable: false,
+                                    value: getVisibleKeys(target).length,
+                                    writable: false
+                                };
+                            }
+                            return Object.getOwnPropertyDescriptor(target, prop);
+                        }
+                    });
+                } catch { }
+
+                try {
+                    if (proxyStorage) {
+                        Object.defineProperty(window, storageName, {
+                            configurable: true,
+                            enumerable: true,
+                            get: function () {
+                                return proxyStorage;
+                            }
+                        });
+                    }
+                } catch { }
+
+                syncBlockedKeyProperties(storage);
+                proto.__auraSupabaseFirewallPatched = true;
+            }
+
+            function patchCookieAccess() {
+                try {
+                    var cookieDescriptor = Object.getOwnPropertyDescriptor(Document.prototype, "cookie");
+                    if (!cookieDescriptor || !cookieDescriptor.configurable) return;
+
+                    Object.defineProperty(document, "cookie", {
+                        configurable: true,
+                        enumerable: false,
+                        get: function () {
+                            return "";
+                        },
+                        set: function () {
+                            return true;
+                        }
+                    });
+                } catch { }
+            }
+
+            function patchFetch() {
+                if (typeof window.fetch !== "function") return;
+                var rawFetch = window.fetch.bind(window);
+                window.fetch = function (input, init) {
+                    if (requestLooksSensitive(input, init, null)) {
+                        return Promise.reject(new Error("Blocked by Aura security policy"));
+                    }
+                    return rawFetch(input, init);
+                };
+            }
+
+            function patchXHR() {
+                if (typeof XMLHttpRequest === "undefined") return;
+                var rawOpen = XMLHttpRequest.prototype.open;
+                var rawSetHeader = XMLHttpRequest.prototype.setRequestHeader;
+                var rawSend = XMLHttpRequest.prototype.send;
+
+                XMLHttpRequest.prototype.open = function (method, url) {
+                    this.__auraRequestUrl = String(url || "");
+                    this.__auraHeaders = {};
+                    return rawOpen.apply(this, arguments);
+                };
+
+                XMLHttpRequest.prototype.setRequestHeader = function (name, value) {
+                    if (!this.__auraHeaders) this.__auraHeaders = {};
+                    this.__auraHeaders[String(name || "").toLowerCase()] = String(value || "");
+                    return rawSetHeader.apply(this, arguments);
+                };
+
+                XMLHttpRequest.prototype.send = function () {
+                    if (requestLooksSensitive(this.__auraRequestUrl || "", null, this.__auraHeaders || null)) {
+                        throw new Error("Blocked by Aura security policy");
+                    }
+                    return rawSend.apply(this, arguments);
+                };
+            }
+
+            function patchBeacon() {
+                if (typeof navigator.sendBeacon !== "function") return;
+                var rawBeacon = navigator.sendBeacon.bind(navigator);
+                navigator.sendBeacon = function (url, data) {
+                    if (requestLooksSensitive(url, null, null)) return false;
+                    return rawBeacon(url, data);
+                };
+            }
+
+            function patchWebSocket() {
+                if (typeof WebSocket === "undefined") return;
+                var RawWebSocket = WebSocket;
+                window.WebSocket = function (url, protocols) {
+                    if (requestLooksSensitive(String(url || ""), null, null)) {
+                        throw new Error("Blocked by Aura security policy");
+                    }
+                    return new RawWebSocket(url, protocols);
+                };
+                window.WebSocket.prototype = RawWebSocket.prototype;
+            }
+
+            patchStorage(window.localStorage, "localStorage");
+            patchStorage(window.sessionStorage, "sessionStorage");
+            patchCookieAccess();
+            patchFetch();
+            patchXHR();
+            patchBeacon();
+            patchWebSocket();
+        })();</script>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Ewellin AI | Lash Design</title>
+    <!-- Adjusting paths to point to the sibling directory -->
+    <!-- CDN Links for Tailwind, Lucide Icons, and Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fff;
+            color: #52525b;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #fce7f3;
+            border-radius: 20px;
+        }
+
+        /* Feminine Palette */
+        .bg-cream-pink {
+            background-color: #FFF0F5;
+        }
+
+        .text-rose-brand {
+            color: #db2777;
+        }
+
+        /* Subtle Background Animations */
+        @keyframes float-gentle {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.4;
+            }
+
+            33% {
+                transform: translate(100px, -50px) rotate(10deg);
+                opacity: 0.6;
+            }
+
+            66% {
+                transform: translate(-50px, 50px) rotate(-5deg);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes float-drift {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translate(-80px, -80px) scale(1.1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        .animate-float-gentle {
+            animation: float-gentle 20s infinite ease-in-out;
+        }
+
+        .animate-float-drift {
+            animation: float-drift 25s infinite ease-in-out reverse;
+        }
+
+        /* Modern Button Shimmer */
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .btn-shimmer {
+            background: linear-gradient(90deg, #E49B9B 0%, #F5C0C0 50%, #E49B9B 100%);
+            background-size: 200% 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-shimmer:hover {
+            animation: shimmer 3s infinite linear;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(228, 155, 155, 0.4);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.8);
+            border-color: #fbcfe8;
+            box-shadow: 0 10px 20px rgba(228, 155, 155, 0.15);
+        }
+
+        /* Delicate Text Shine */
+        @keyframes text-shine {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        .animate-text-shine {
+            background-size: 200% auto;
+            animation: text-shine 4s linear infinite;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .bg-noise {
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.5'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-zinc-600 antialiased selection:bg-rose-100 selection:text-rose-900 pt-16 relative">
+
+    <!-- Global Fixed Background - Solves Footer Gap & Ensures White Dominance -->
+    <div class="fixed inset-0 w-full h-full pointer-events-none -z-50 overflow-hidden bg-white">
+        <!-- Subtle Moving Lights (Soft Rose & Lavender) -->
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#FFE4E6] blur-[120px] mix-blend-multiply animate-float-gentle">
+        </div>
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#FFF0F5] blur-[120px] mix-blend-multiply animate-float-drift">
+        </div>
+        <div class="absolute top-[30%] left-[40%] w-[30vw] h-[30vw] rounded-full bg-[#FCE7F3] blur-[100px] mix-blend-multiply animate-pulse"
+            style="animation-duration: 8s;"></div>
+
+        <!-- Noise Overlay -->
+        <div class="bg-noise absolute inset-0"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav
+        class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl shadow-rose-100/20 rounded-full h-20 px-6 flex items-center justify-between transition-all duration-300 hover:bg-white/90 group/nav">
+
+        <!-- Logo -->
+        <div
+            class="text-zinc-700 font-bold tracking-tighter text-xl uppercase flex items-center gap-3 cursor-pointer group">
+
+            <!-- Logo Image Container with Animation -->
+            <div class="relative w-16 h-16 flex items-center justify-center">
+                <!-- Glow effect behind the logo on hover -->
+                <div
+                    class="absolute inset-0 bg-rose-200/50 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+
+                <!-- Logo Image: Replace 'src' with your actual logo file path -->
+                <img src="https://placehold.co/200x200/FFF0F5/E49B9B?text=LOGO&font=playfair" alt="Logo Ewellin Jordão"
+                    class="relative w-full h-full object-contain drop-shadow-sm transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
+            </div>
+
+            <div class="flex flex-col leading-none justify-center h-full pt-1">
+                <span class="text-lg tracking-tight font-bold text-zinc-700">Ewellin</span>
+                <span
+                    class="text-[#E49B9B] font-medium text-[10px] tracking-[0.3em] uppercase group-hover:text-rose-500 transition-colors ml-0.5">Jordão</span>
+            </div>
+        </div>
+
+        <!-- Links (Desktop) -->
+        <div
+            class="hidden md:flex items-center gap-1 bg-white/50 px-6 py-2 rounded-full border border-white/50 shadow-sm shadow-rose-100/30">
+            <a href="home_page.html"
+                class="px-4 py-2 text-sm font-medium text-rose-600 font-semibold bg-rose-50 rounded-full transition-colors relative group">
+                Início
+            </a>
+            <a href="playup_page.html"
+                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                PLAYUP! Academy
+                <span
+                    class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
+            </a>
+            <a href="sobre.html"
+                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                Sobre
+                <span
+                    class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
+            </a>
+            <a href="espaco_page.html"
+                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                Nosso Espaço
+                <span
+                    class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
+            </a>
+        </div>
+
+        <!-- Right Actions: Socials + CTA -->
+        <div class="flex items-center gap-4">
+            <!-- Social Icons -->
+            <div class="flex items-center gap-2 pr-4 border-r border-rose-100 hidden sm:flex">
+                <a href="#"
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-black hover:bg-black/5 transition-all group hover:scale-110">
+                    <!-- TikTok Icon (SVG) -->
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                    </svg>
+                </a>
+                <a href="#"
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-[#E4405F] hover:bg-[#E4405F]/5 transition-all group hover:scale-110">
+                    <!-- Instagram Icon (Lucide-like SVG for consistency) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-instagram">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="#"
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-[#25D366] hover:bg-[#25D366]/5 transition-all group hover:scale-110">
+                    <!-- WhatsApp Icon (SVG) -->
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                    </svg>
+                </a>
+            </div>
+
+            <a href="#"
+                class="btn-shimmer text-white px-6 py-2.5 rounded-full font-medium text-sm shadow-md shadow-rose-200 hover:shadow-lg transition-all hover:-translate-y-0.5">
+                Agende seu horário
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-[90vh] flex items-center">
+        <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
+
+            <!-- Left Column: Content -->
+            <div class="text-left animate-fade-in-up order-2 lg:order-1">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur border border-rose-200 mb-8 shadow-sm hover:scale-105 transition-transform cursor-default">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5C0C0] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#E49B9B]"></span>
+                    </span>
+                    <span class="text-xs font-bold text-[#D08080] tracking-wider uppercase">Nova Turma Aberta</span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-zinc-700 tracking-tight leading-[1] mb-6">
+                    Domine a arte do <br />
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-[#E49B9B] via-[#F5C0C0] to-[#E49B9B] animate-text-shine">Lash
+                        Design.</span>
+                </h1>
+
+                <p class="text-lg md:text-xl text-zinc-500 font-light leading-relaxed mb-10 max-w-lg">
+                    Transforme olhares e sua carreira. Aprenda do zero ao avançado com a metodologia exclusiva PLAYUP e
+                    conquiste sua independência financeira.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button
+                        class="btn-shimmer text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl shadow-rose-200/50 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center justify-center gap-2 group">
+                        Conheça o PLAYUP!
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+
+                    <button
+                        class="px-8 py-4 rounded-full font-semibold text-zinc-600 bg-white/40 backdrop-blur-md border border-white/60 hover:border-[#E49B9B]/30 hover:bg-white/60 hover:text-[#9D7E70] transition-all duration-700 ease-out shadow-sm hover:shadow-[0_10px_40px_-10px_rgba(228,155,155,0.2)] hover:-translate-y-0.5 flex items-center justify-center gap-2 group relative overflow-hidden">
+                        <span
+                            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmer transition-transform"></span>
+                        <svg class="w-5 h-5 fill-current text-[#E49B9B] group-hover:scale-110 transition-transform duration-700 ease-out relative z-10 opacity-90 group-hover:opacity-100"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                        <span class="relative z-10 font-medium tracking-wide">Entre na Lista VIP</span>
+                    </button>
+                </div>
+
+                <div class="mt-12 flex items-center gap-4 text-sm text-zinc-400">
+                    <div class="flex -space-x-3">
+                        <div class="w-10 h-10 rounded-full border-2 border-white bg-zinc-200 overflow-hidden">
+                            <img src="https://i.pravatar.cc/100?img=1" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-10 h-10 rounded-full border-2 border-white bg-zinc-200 overflow-hidden">
+                            <img src="https://i.pravatar.cc/100?img=5" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-10 h-10 rounded-full border-2 border-white bg-zinc-200 overflow-hidden">
+                            <img src="https://i.pravatar.cc/100?img=9" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full border-2 border-white bg-rose-50 flex items-center justify-center text-[#E49B9B] font-bold text-xs">
+                            +1k
+                        </div>
+                    </div>
+                    <p>Alunas certificadas</p>
+                </div>
+            </div>
+
+            <!-- Right Column: Video -->
+            <div class="relative order-1 lg:order-2">
+                <!-- Decorative elements behind video -->
+                <div
+                    class="absolute -top-10 -right-10 w-32 h-32 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse">
+                </div>
+                <div
+                    class="absolute -bottom-10 -left-10 w-32 h-32 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000">
+                </div>
+
+                <!-- Video Container -->
+                <div id="video-container-wrapper"
+                    style="-webkit-mask-image: -webkit-radial-gradient(white, black); mask-image: radial-gradient(white, black);"
+                    class="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-rose-200/40 border-8 border-white bg-white transform rotate-2 hover:rotate-0 transition-all duration-700 group isolate">
+                    <div class="aspect-[4/3] md:aspect-square lg:aspect-[4/5] relative bg-zinc-100">
+                        <!-- Video Element -->
+                        <video id="hero-video" autoplay loop muted playsinline
+                            class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105">
+                            <source src="assets/Video/Landing_page.mp4" type="video/mp4">
+                        </video>
+
+                        <!-- Overlay Wrapper -->
+                        <div id="video-overlay" class="absolute inset-0 transition-opacity duration-500 z-10">
+                            <!-- Dark Gradient -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+
+                            <!-- Text Info -->
+                            <div class="absolute bottom-6 left-6 right-6 text-white p-6 glass-effect rounded-2xl">
+                                <p class="text-xs font-medium tracking-wide uppercase opacity-80 mb-1">Módulo 01
+                                </p>
+                                <h3 class="text-lg font-semibold leading-snug">Seja Bem-vinda ao PLAYUP! Academy</h3>
+                            </div>
+
+                            <!-- Play Button -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <button id="hero-play-btn"
+                                    class="w-20 h-20 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-white/60 shadow-lg cursor-pointer hover:bg-white/40">
+                                    <div
+                                        class="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-1">
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer (Minimal & Discrete) -->
+    <!-- Footer (Minimal & Discrete) -->
+    <footer class="absolute bottom-0 w-full py-4 pointer-events-none">
+        <div class="max-w-7xl mx-auto px-6">
+            <div
+                class="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-zinc-300 uppercase tracking-widest pointer-events-auto">
+                <p class="opacity-60">&copy; 2026 Ewellin Jordão</p>
+                <div class="flex gap-6 opacity-60">
+                    <a href="termos.html" class="hover:text-zinc-500 transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Video Interaction Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoContainer = document.getElementById('video-container-wrapper');
+            const video = document.getElementById('hero-video');
+            const overlay = document.getElementById('video-overlay');
+            const playBtn = document.getElementById('hero-play-btn');
+
+            if (playBtn && video) {
+                playBtn.addEventListener('click', () => {
+                    // Activate Video
+                    video.muted = false;
+                    video.loop = false;
+                    video.currentTime = 0;
+                    video.controls = true;
+                    video.classList.remove('opacity-90', 'group-hover:scale-105', 'transition-transform'); // Fix position
+                    video.classList.add('opacity-100');
+
+                    // Flatten Container (remove tilt)
+                    if (videoContainer) {
+                        videoContainer.classList.remove('rotate-2', 'hover:rotate-0', 'group');
+                        videoContainer.classList.add('rotate-0', 'scale-100');
+                    }
+
+                    // Hide Overlay
+                    overlay.classList.add('opacity-0', 'pointer-events-none');
+
+                    // Play
+                    video.play();
+                });
+
+                // Reset on End or Pause
+                const resetVideoState = () => {
+                    if (!video.paused && !video.ended) return; // Don't reset if still playing
+
+                    video.controls = false;
+                    video.muted = true;
+                    video.loop = true;
+
+                    // Only play if it was paused/ended, to restart the background loop
+                    video.play().catch(() => { });
+
+                    video.classList.add('opacity-90', 'group-hover:scale-105', 'transition-transform');
+                    video.classList.remove('opacity-100');
+
+                    if (videoContainer) {
+                        videoContainer.classList.add('rotate-2', 'group');
+                        videoContainer.classList.remove('rotate-0', 'scale-100');
+                    }
+
+                    overlay.classList.remove('opacity-0', 'pointer-events-none');
+                };
+
+                video.addEventListener('ended', resetVideoState);
+                video.addEventListener('pause', resetVideoState);
+            }
+        });
+    </script>
+</body>
+
+</html>
