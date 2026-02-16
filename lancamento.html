@@ -333,6 +333,22 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Lançamento Oficial | PLAYUP Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        zinc: {
+                            850: '#1f1f22',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -341,8 +357,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #fff;
-            color: #52525b;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Custom scrollbar */
@@ -476,10 +491,12 @@
     </style>
 </head>
 
-<body class="bg-white text-zinc-600 antialiased selection:bg-rose-100 selection:text-rose-900 pt-16 relative">
+<body
+    class="bg-white dark:bg-zinc-950 text-zinc-600 dark:text-zinc-300 antialiased selection:bg-rose-100 selection:text-rose-900 pt-16 relative transition-colors duration-300">
 
     <!-- Global Fixed Background -->
-    <div class="fixed inset-0 w-full h-full pointer-events-none -z-50 overflow-hidden bg-white">
+    <div
+        class="fixed inset-0 w-full h-full pointer-events-none -z-50 overflow-hidden bg-white dark:bg-zinc-950 transition-colors duration-300">
         <!-- Subtle Moving Lights (Soft Rose & Lavender) -->
         <div
             class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#FFE4E6] blur-[120px] mix-blend-multiply animate-float-gentle">
@@ -496,10 +513,10 @@
 
     <!-- Navigation -->
     <nav
-        class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl shadow-rose-100/20 rounded-full h-20 px-6 flex items-center justify-between transition-all duration-300 hover:bg-white/90 group/nav">
+        class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-xl shadow-rose-100/20 dark:shadow-rose-900/10 rounded-full h-20 px-6 flex items-center justify-between transition-all duration-300 hover:bg-white/90 dark:hover:bg-zinc-900/90 group/nav">
         <!-- Logo -->
         <a href="home_page.html"
-            class="text-zinc-700 font-bold tracking-tighter text-xl uppercase flex items-center gap-3 cursor-pointer group">
+            class="text-zinc-700 dark:text-zinc-100 font-bold tracking-tighter text-xl uppercase flex items-center gap-3 cursor-pointer group">
             <div class="relative h-16 w-auto flex items-center justify-center">
                 <div
                     class="absolute inset-0 bg-rose-200/50 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -508,7 +525,7 @@
                     class="relative h-full w-auto object-contain drop-shadow-sm transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
             </div>
             <div class="flex flex-col leading-none justify-center h-full pt-1">
-                <span class="text-lg tracking-tight font-bold text-zinc-700">Ewellin</span>
+                <span class="text-lg tracking-tight font-bold text-zinc-700 dark:text-zinc-100">Ewellin</span>
                 <span
                     class="text-[#E49B9B] font-medium text-[10px] tracking-[0.3em] uppercase group-hover:text-rose-500 transition-colors ml-0.5">Jordão</span>
             </div>
@@ -516,27 +533,27 @@
 
         <!-- Links (Desktop) -->
         <div
-            class="hidden md:flex items-center gap-1 bg-white/50 px-6 py-2 rounded-full border border-white/50 shadow-sm shadow-rose-100/30">
+            class="hidden md:flex items-center gap-1 bg-white/50 dark:bg-zinc-800/50 px-6 py-2 rounded-full border border-white/50 dark:border-white/10 shadow-sm shadow-rose-100/30 dark:shadow-none">
             <a href="home_page.html"
-                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Início
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
             </a>
             <a href="playup_page.html"
-                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 PLAYUP! Academy
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
             </a>
             <a href="sobre.html"
-                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Sobre
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
             </a>
             <a href="espaco_page.html"
-                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Nosso Espaço
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
@@ -545,16 +562,34 @@
 
         <!-- Right Actions -->
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2 pr-4 border-r border-rose-100 hidden sm:flex">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle"
+                class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:bg-rose-50 dark:hover:bg-zinc-800 transition-all focus:outline-none">
+                <!-- Sun Icon (for Dark Mode) -->
+                <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                    </path>
+                </svg>
+                <!-- Moon Icon (for Light Mode) -->
+                <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                    </path>
+                </svg>
+            </button>
+            <div class="flex items-center gap-2 pr-4 border-r border-rose-100 dark:border-zinc-700 hidden sm:flex">
                 <a href="https://www.tiktok.com/@ewellinjordao" target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-black hover:bg-black/5 transition-all group hover:scale-110">
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all group hover:scale-110">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
                     </svg>
                 </a>
                 <a href="https://www.instagram.com/ewellinup/" target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-[#E4405F] hover:bg-[#E4405F]/5 transition-all group hover:scale-110">
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:text-[#E4405F] hover:bg-[#E4405F]/5 transition-all group hover:scale-110">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-instagram">
@@ -564,7 +599,7 @@
                     </svg>
                 </a>
                 <a href="https://wa.me/351910375956" target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-[#25D366] hover:bg-[#25D366]/5 transition-all group hover:scale-110">
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:text-[#25D366] hover:bg-[#25D366]/5 transition-all group hover:scale-110">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
@@ -588,7 +623,7 @@
             <div class="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1">
                 <!-- Badge -->
                 <div
-                    class="self-start inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur border border-rose-200 mb-8 shadow-sm hover:scale-105 transition-transform cursor-default">
+                    class="self-start inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 dark:bg-zinc-800/80 backdrop-blur border border-rose-200 dark:border-rose-900/50 mb-8 shadow-sm hover:scale-105 transition-transform cursor-default">
                     <span class="relative flex h-2.5 w-2.5">
                         <span
                             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5C0C0] opacity-75"></span>
@@ -597,14 +632,15 @@
                     <span class="text-xs font-bold text-[#D08080] tracking-wider uppercase">Oferta Relâmpago</span>
                 </div>
 
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-zinc-700 tracking-tight leading-[1] mb-6">
+                <h1
+                    class="text-5xl md:text-6xl lg:text-7xl font-bold text-zinc-700 dark:text-zinc-100 tracking-tight leading-[1] mb-6">
                     Aproveite o <br />
                     <span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-[#E49B9B] via-[#F5C0C0] to-[#E49B9B] animate-text-shine">PLAYUP!</span>
                     no Lançamento.
                 </h1>
 
-                <p class="text-lg text-zinc-500 font-light leading-relaxed mb-8 max-w-xl">
+                <p class="text-lg text-zinc-500 dark:text-zinc-400 font-light leading-relaxed mb-8 max-w-xl">
                     Garanta seu acesso completo à metodologia que está revolucionando o mercado de Lash Design com um
                     desconto exclusivo de lançamento.
                 </p>
@@ -612,48 +648,50 @@
                 <!-- Countdown Timer -->
                 <div class="grid grid-cols-4 gap-4 mb-10 max-w-md">
                     <div
-                        class="bg-white/60 backdrop-blur rounded-2xl p-4 text-center border border-white shadow-lg shadow-rose-100/20">
-                        <span id="days" class="block text-3xl font-bold text-zinc-700">00</span>
-                        <span class="text-xs uppercase tracking-widest text-zinc-400">Dias</span>
+                        class="bg-white/60 dark:bg-zinc-800/60 backdrop-blur rounded-2xl p-4 text-center border border-white dark:border-zinc-700 shadow-lg shadow-rose-100/20 dark:shadow-rose-900/10">
+                        <span id="days" class="block text-3xl font-bold text-zinc-700 dark:text-zinc-200">00</span>
+                        <span class="text-xs uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Dias</span>
                     </div>
                     <div
-                        class="bg-white/60 backdrop-blur rounded-2xl p-4 text-center border border-white shadow-lg shadow-rose-100/20">
-                        <span id="hours" class="block text-3xl font-bold text-zinc-700">00</span>
-                        <span class="text-xs uppercase tracking-widest text-zinc-400">Horas</span>
+                        class="bg-white/60 dark:bg-zinc-800/60 backdrop-blur rounded-2xl p-4 text-center border border-white dark:border-zinc-700 shadow-lg shadow-rose-100/20 dark:shadow-rose-900/10">
+                        <span id="hours" class="block text-3xl font-bold text-zinc-700 dark:text-zinc-200">00</span>
+                        <span class="text-xs uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Horas</span>
                     </div>
                     <div
-                        class="bg-white/60 backdrop-blur rounded-2xl p-4 text-center border border-white shadow-lg shadow-rose-100/20">
-                        <span id="minutes" class="block text-3xl font-bold text-zinc-700">00</span>
-                        <span class="text-xs uppercase tracking-widest text-zinc-400">Min</span>
+                        class="bg-white/60 dark:bg-zinc-800/60 backdrop-blur rounded-2xl p-4 text-center border border-white dark:border-zinc-700 shadow-lg shadow-rose-100/20 dark:shadow-rose-900/10">
+                        <span id="minutes" class="block text-3xl font-bold text-zinc-700 dark:text-zinc-200">00</span>
+                        <span class="text-xs uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Min</span>
                     </div>
                     <div
-                        class="bg-white/60 backdrop-blur rounded-2xl p-4 text-center border border-white shadow-lg shadow-rose-100/20">
+                        class="bg-white/60 dark:bg-zinc-800/60 backdrop-blur rounded-2xl p-4 text-center border border-white dark:border-zinc-700 shadow-lg shadow-rose-100/20 dark:shadow-rose-900/10">
                         <span id="seconds" class="block text-3xl font-bold text-[#E49B9B]">00</span>
-                        <span class="text-xs uppercase tracking-widest text-zinc-400">Seg</span>
+                        <span class="text-xs uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Seg</span>
                     </div>
                 </div>
 
                 <!-- Price Card -->
                 <div
-                    class="glass-effect rounded-[2rem] p-8 border border-white/60 shadow-xl shadow-rose-200/30 max-w-xl relative overflow-hidden group">
+                    class="glass-effect dark:bg-zinc-900/50 dark:border-zinc-700 rounded-[2rem] p-8 border border-white/60 shadow-xl shadow-rose-200/30 dark:shadow-none max-w-xl relative overflow-hidden group">
                     <div
                         class="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-rose-200/40 to-transparent rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700">
                     </div>
 
                     <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                         <div>
-                            <p class="text-sm font-medium text-zinc-400 uppercase tracking-wide mb-1">Valor Original</p>
+                            <p class="text-sm font-medium text-zinc-400 font-medium mb-1 uppercase tracking-wide">Valor
+                                Original</p>
                             <p
                                 class="text-xl md:text-2xl font-semibold text-zinc-400 line-through decoration-rose-300/60 decoration-2">
                                 R$ 1.997 / € 350</p>
                         </div>
                         <div
-                            class="hidden md:block w-px h-16 bg-gradient-to-b from-transparent via-zinc-200 to-transparent">
+                            class="hidden md:block w-px h-16 bg-gradient-to-b from-transparent via-zinc-200 dark:via-zinc-700 to-transparent">
                         </div>
                         <div class="text-center md:text-right">
                             <p class="text-sm font-bold text-[#E49B9B] uppercase tracking-wide mb-1 animate-pulse">Valor
                                 Promocional</p>
-                            <p class="text-3xl md:text-3xl font-bold text-zinc-700 tracking-tight">R$ 1.059 / € 169</p>
+                            <p class="text-3xl md:text-3xl font-bold text-zinc-700 dark:text-zinc-200 tracking-tight">R$
+                                1.059 | € 169</p>
                             <p class="text-xs text-zinc-500 mt-1">Parcelamento em até 5x (Brasil)</p>
                         </div>
                     </div>
@@ -748,6 +786,45 @@
 
     <script>
         lucide.createIcons();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Check local storage or system preference
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function () {
+            // Toggle icons
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            // If is set in local storage
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
 
         // Video Interaction Logic
         document.addEventListener('DOMContentLoaded', () => {

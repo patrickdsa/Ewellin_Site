@@ -335,6 +335,22 @@
     <!-- Adjusting paths to point to the sibling directory -->
     <!-- CDN Links for Tailwind, Lucide Icons, and Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        zinc: {
+                            850: '#1f1f22',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -343,8 +359,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #fff;
-            color: #52525b;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Custom scrollbar */
@@ -455,6 +470,11 @@
             transition: all 0.3s ease;
         }
 
+        .dark .glass-card {
+            background: rgba(24, 24, 27, 0.6);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
         .glass-card:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.8);
@@ -491,10 +511,12 @@
     </style>
 </head>
 
-<body class="bg-white text-zinc-600 antialiased selection:bg-rose-100 selection:text-rose-900 pt-32 relative">
+<body
+    class="bg-white dark:bg-zinc-950 text-zinc-600 dark:text-zinc-300 antialiased selection:bg-rose-100 selection:text-rose-900 pt-32 relative transition-colors duration-300">
 
     <!-- Global Fixed Background -->
-    <div class="fixed inset-0 w-full h-full pointer-events-none -z-50 overflow-hidden bg-white">
+    <div
+        class="fixed inset-0 w-full h-full pointer-events-none -z-50 overflow-hidden bg-white dark:bg-zinc-950 transition-colors duration-300">
         <!-- Subtle Moving Lights (Soft Rose & Lavender) -->
         <div
             class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#FFE4E6] blur-[120px] mix-blend-multiply animate-float-gentle">
@@ -508,11 +530,11 @@
 
     <!-- Navigation (Copied from index.html) -->
     <nav
-        class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl shadow-rose-100/20 rounded-full h-20 px-6 flex items-center justify-between transition-all duration-300 hover:bg-white/90 group/nav">
+        class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-xl shadow-rose-100/20 dark:shadow-rose-900/10 rounded-full h-20 px-6 flex items-center justify-between transition-all duration-300 hover:bg-white/90 dark:hover:bg-zinc-900/90 group/nav">
 
         <!-- Logo -->
         <a href="home_page.html"
-            class="text-zinc-700 font-bold tracking-tighter text-xl uppercase flex items-center gap-3 cursor-pointer group">
+            class="text-zinc-700 dark:text-zinc-100 font-bold tracking-tighter text-xl uppercase flex items-center gap-3 cursor-pointer group">
 
             <!-- Logo Image Container with Animation -->
             <div class="relative h-16 w-auto flex items-center justify-center">
@@ -527,7 +549,7 @@
             </div>
 
             <div class="flex flex-col leading-none justify-center h-full pt-1">
-                <span class="text-lg tracking-tight font-bold text-zinc-700">Ewellin</span>
+                <span class="text-lg tracking-tight font-bold text-zinc-700 dark:text-zinc-100">Ewellin</span>
                 <span
                     class="text-[#E49B9B] font-medium text-[10px] tracking-[0.3em] uppercase group-hover:text-rose-500 transition-colors ml-0.5">Jordão</span>
             </div>
@@ -535,9 +557,9 @@
 
         <!-- Links (Desktop) -->
         <div
-            class="hidden md:flex items-center gap-1 bg-white/50 px-6 py-2 rounded-full border border-white/50 shadow-sm shadow-rose-100/30">
+            class="hidden md:flex items-center gap-1 bg-white/50 dark:bg-zinc-800/50 px-6 py-2 rounded-full border border-white/50 dark:border-white/10 shadow-sm shadow-rose-100/30 dark:shadow-none">
             <a href="home_page.html"
-                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Início
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
@@ -547,13 +569,13 @@
                 PLAYUP! Academy
             </a>
             <a href="sobre.html"
-                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Sobre
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
             </a>
             <a href="espaco_page.html"
-                class="px-4 py-2 text-sm font-medium text-zinc-700 hover:text-rose-600 transition-colors relative group">
+                class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Nosso Espaço
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
@@ -562,17 +584,36 @@
 
         <!-- Right Actions: Socials + CTA -->
         <div class="flex items-center gap-4">
-            <!-- Social Icons -->
-            <div class="flex items-center gap-2 pr-4 border-r border-rose-100 hidden sm:flex">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle"
+                class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:bg-rose-50 dark:hover:bg-zinc-800 transition-all focus:outline-none">
+                <!-- Sun Icon (for Dark Mode) -->
+                <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                    </path>
+                </svg>
+                <!-- Moon Icon (for Light Mode) -->
+                <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                    </path>
+                </svg>
+            </button>
+
+            <!-- Social Icons (Desktop) -->
+            <div class="hidden lg:flex items-center gap-2 pr-4 border-r border-rose-100 dark:border-zinc-700">
                 <a href="https://www.tiktok.com/@ewellinjordao" target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-black hover:bg-black/5 transition-all group hover:scale-110">
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all group hover:scale-110">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
                     </svg>
                 </a>
                 <a href="https://www.instagram.com/ewellinup/" target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-[#E4405F] hover:bg-[#E4405F]/5 transition-all group hover:scale-110">
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:text-[#E4405F] hover:bg-[#E4405F]/5 transition-all group hover:scale-110">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-instagram">
@@ -582,7 +623,7 @@
                     </svg>
                 </a>
                 <a href="https://wa.me/351910375956" target="_blank"
-                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 hover:text-[#25D366] hover:bg-[#25D366]/5 transition-all group hover:scale-110">
+                    class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-700 dark:text-zinc-300 hover:text-[#25D366] hover:bg-[#25D366]/5 transition-all group hover:scale-110">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
@@ -590,13 +631,61 @@
                 </a>
             </div>
 
+            <!-- CTA Button (Desktop) -->
             <a href="https://www.fresha.com/pt/a/ewellin-jordao-beauty-academy-coimbra-rua-vale-das-flores-23-zi8xo72w"
                 target="_blank"
-                class="btn-shimmer text-white px-6 py-2.5 rounded-full font-medium text-sm shadow-md shadow-rose-200 hover:shadow-lg transition-all hover:-translate-y-0.5">
+                class="hidden md:flex btn-shimmer text-white px-6 py-2.5 rounded-full font-medium text-sm shadow-md shadow-rose-200 hover:shadow-lg transition-all hover:-translate-y-0.5">
                 Agende seu horário
             </a>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-zinc-700 dark:text-zinc-100 p-2">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu"
+        class="fixed inset-0 z-[60] bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 md:hidden">
+        <!-- Close Button -->
+        <button id="close-menu-btn" class="absolute top-8 right-8 text-zinc-700 dark:text-zinc-100 p-2">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+
+        <!-- Links -->
+        <a href="home_page.html"
+            class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">Início</a>
+        <a href="playup_page.html"
+            class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">PLAYUP!
+            Academy</a>
+        <a href="sobre.html"
+            class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">Sobre</a>
+        <a href="espaco_page.html"
+            class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">Nosso
+            Espaço</a>
+
+        <!-- CTA Mobile -->
+        <a href="https://www.fresha.com/pt/a/ewellin-jordao-beauty-academy-coimbra-rua-vale-das-flores-23-zi8xo72w"
+            target="_blank" class="btn-shimmer text-white px-8 py-3 rounded-full font-bold shadow-lg">
+            Agende seu horário
+        </a>
+
+        <!-- Mobile Socials -->
+        <div class="flex gap-6 mt-8">
+            <a href="https://www.instagram.com/ewellinup/" target="_blank"
+                class="text-zinc-600 dark:text-zinc-400 hover:text-[#E4405F]">
+                <i data-lucide="instagram" class="w-6 h-6"></i>
+            </a>
+            <a href="https://wa.me/351910375956" target="_blank"
+                class="text-zinc-600 dark:text-zinc-400 hover:text-[#25D366]">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                </svg>
+            </a>
+        </div>
+    </div>
 
     <!-- Welcome Section (Video) -->
     <section class="min-h-[80vh] flex flex-col items-center justify-center px-6 pt-12 pb-16 relative">
@@ -605,13 +694,14 @@
                 class="inline-block px-4 py-1.5 rounded-full bg-rose-50 text-[#E49B9B] text-xs font-bold tracking-widest uppercase mb-4 border border-rose-100">
                 Boas-vindas
             </span>
-            <h1 class="text-4xl md:text-6xl font-bold text-zinc-700 tracking-tight leading-tight mb-6">
+            <h1
+                class="text-4xl md:text-6xl font-bold text-zinc-700 dark:text-zinc-100 tracking-tight leading-tight mb-6">
                 Descubra o universo <br />
                 <span
                     class="text-transparent bg-clip-text bg-gradient-to-r from-[#E49B9B] via-[#F5C0C0] to-[#E49B9B] animate-text-shine">PLAYUP!
                     Academy</span>
             </h1>
-            <p class="text-lg text-zinc-500 max-w-xl mx-auto font-light leading-relaxed">
+            <p class="text-lg text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto font-light leading-relaxed">
                 Mais do que um curso, uma experiência transformadora. Assista ao vídeo e veja como vamos elevar sua
                 carreira para o próximo nível.
             </p>
@@ -656,8 +746,10 @@
     <section class="py-24 px-6 relative">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold text-zinc-700 mb-4">O que você vai aprender</h2>
-                <p class="text-zinc-500 max-w-xl mx-auto">Um currículo completo, desenhado para te levar do absoluto
+                <h2 class="text-3xl md:text-5xl font-bold text-zinc-700 dark:text-zinc-100 mb-4">O que você vai aprender
+                </h2>
+                <p class="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">Um currículo completo, desenhado para te
+                    levar do absoluto
                     zero à excelência técnica e financeira.</p>
             </div>
 
@@ -668,8 +760,9 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="sparkles" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 mb-3">Fundamentos & Visagismo</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">Entenda a anatomia dos olhos, biossegurança e como
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Fundamentos & Visagismo</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Entenda a anatomia dos olhos,
+                        biossegurança e como
                         criar designs personalizados para cada tipo de rosto.</p>
                 </div>
 
@@ -679,8 +772,9 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="move" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 mb-3">Técnica Fio a Fio Clássica</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">A base de tudo. Aprenda acoplagem perfeita,
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Técnica Fio a Fio Clássica</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">A base de tudo. Aprenda
+                        acoplagem perfeita,
                         isolamento e direcionalidade para um acabamento impecável.</p>
                 </div>
 
@@ -690,8 +784,9 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="layers" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 mb-3">Volume Russo & Mega Volume</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">Domine a criação de fans artesanais e técnicas
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Volume Russo & Mega Volume</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Domine a criação de fans
+                        artesanais e técnicas
                         avançadas para entregar volume e densidade com segurança.</p>
                 </div>
 
@@ -701,8 +796,9 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="shield-check" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 mb-3">Retention Mastery</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">O segredo da durabilidade. Descubra como fazer as
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Retention Mastery</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">O segredo da durabilidade.
+                        Descubra como fazer as
                         extensões durarem mais de 30 dias intactas.</p>
                 </div>
 
@@ -712,8 +808,9 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="trending-up" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 mb-3">Marketing & Vendas</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">Aprenda a se posicionar, atrair clientes
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Marketing & Vendas</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Aprenda a se posicionar, atrair
+                        clientes
                         qualificados e lotar sua agenda usando o Instagram.</p>
                 </div>
 
@@ -723,8 +820,9 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="camera" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 mb-3">Fotografia & Edição</h3>
-                    <p class="text-sm text-zinc-500 leading-relaxed">Como tirar fotos que vendem e editar seu portfólio
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Fotografia & Edição</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Como tirar fotos que vendem e
+                        editar seu portfólio
                         para encantar clientes à primeira vista.</p>
                 </div>
             </div>
@@ -742,7 +840,7 @@
 
             <!-- Card Content -->
             <div
-                class="relative bg-white/80 backdrop-blur-2xl rounded-[2.5rem] p-12 md:p-16 text-center shadow-2xl shadow-rose-200/40 border border-white/50 overflow-hidden">
+                class="relative bg-white/80 dark:bg-zinc-900/80 backdrop-blur-2xl rounded-[2.5rem] p-12 md:p-16 text-center shadow-2xl shadow-rose-200/40 dark:shadow-none border border-white/50 dark:border-zinc-700 overflow-hidden">
 
                 <!-- Background Decor -->
                 <div
@@ -756,13 +854,13 @@
                             Limitadas</span>
                     </span>
 
-                    <h2 class="text-4xl md:text-6xl font-bold text-zinc-700 mb-6 tracking-tight">
+                    <h2 class="text-4xl md:text-6xl font-bold text-zinc-700 dark:text-zinc-100 mb-6 tracking-tight">
                         Pronta para transformar <br /> <span
                             class="bg-clip-text text-transparent bg-gradient-to-r from-[#E49B9B] to-[#d48a8a]">sua
                             vida?</span>
                     </h2>
 
-                    <p class="text-zinc-500 text-lg mb-10 max-w-xl mx-auto font-light">
+                    <p class="text-zinc-500 dark:text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light">
                         Junte-se à elite do Lash Design. O método PLAYUP já formou mais de 1.000 profissionais de
                         sucesso.
                     </p>
@@ -789,13 +887,16 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-rose-100 py-6 relative z-10 w-full overflow-hidden">
+    <footer
+        class="bg-white dark:bg-zinc-950 border-t border-rose-100 dark:border-zinc-800 py-6 relative z-10 w-full overflow-hidden transition-colors duration-300">
         <!-- Background Gradient -->
-        <div class="absolute inset-0 bg-gradient-to-t from-rose-50/30 to-transparent pointer-events-none"></div>
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-rose-50/30 dark:from-zinc-900/30 to-transparent pointer-events-none">
+        </div>
 
         <div class="relative w-[95%] max-w-7xl mx-auto px-6">
             <div
-                class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 border-b border-rose-50/50 pb-4">
+                class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 border-b border-rose-50/50 dark:border-zinc-800 pb-4">
                 <!-- Left: Logo -->
                 <div class="flex flex-col items-center md:items-start group cursor-default">
                     <span
@@ -874,6 +975,77 @@
     </footer>
     <script>
         lucide.createIcons();
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('translate-x-full');
+                if (!mobileMenu.classList.contains('translate-x-full')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        if (mobileMenuBtn && closeMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+            closeMenuBtn.addEventListener('click', toggleMenu);
+        }
+
+        if (mobileMenu) {
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        function updateTheme() {
+            const isDark = localStorage.getItem('color-theme') === 'dark' ||
+                (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
+                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
+            }
+        }
+
+        // Initial check
+        updateTheme();
+
+        // Listen for OS changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (!('color-theme' in localStorage)) {
+                updateTheme();
+            }
+        });
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function () {
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    localStorage.setItem('color-theme', 'dark');
+                }
+                updateTheme();
+            });
+        }
 
         // Playup Video Interaction
         document.addEventListener('DOMContentLoaded', () => {
