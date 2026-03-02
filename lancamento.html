@@ -332,163 +332,14 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Lançamento Oficial | PLAYUP Academy</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        zinc: {
-                            850: '#1f1f22',
-                            900: '#18181b',
-                            950: '#09090b',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Local Tailwind CSS -->
+    <link rel="stylesheet" href="public/css/tailwind.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #fce7f3;
-            border-radius: 20px;
-        }
-
-        /* Feminine Palette */
-        .bg-cream-pink {
-            background-color: #FFF0F5;
-        }
-
-        .text-rose-brand {
-            color: #db2777;
-        }
-
-        /* Subtle Background Animations */
-        @keyframes float-gentle {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.4;
-            }
-
-            33% {
-                transform: translate(100px, -50px) rotate(10deg);
-                opacity: 0.6;
-            }
-
-            66% {
-                transform: translate(-50px, 50px) rotate(-5deg);
-                opacity: 0.4;
-            }
-
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.4;
-            }
-        }
-
-        @keyframes float-drift {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.3;
-            }
-
-            50% {
-                transform: translate(-80px, -80px) scale(1.1);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.3;
-            }
-        }
-
-        .animate-float-gentle {
-            animation: float-gentle 20s infinite ease-in-out;
-        }
-
-        .animate-float-drift {
-            animation: float-drift 25s infinite ease-in-out reverse;
-        }
-
-        /* Modern Button Shimmer */
-        @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-
-        .btn-shimmer {
-            background: linear-gradient(90deg, #E49B9B 0%, #F5C0C0 50%, #E49B9B 100%);
-            background-size: 200% 100%;
-            transition: all 0.3s ease;
-        }
-
-        .btn-shimmer:hover {
-            animation: shimmer 3s infinite linear;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(228, 155, 155, 0.4);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.8);
-            border-color: #fbcfe8;
-            box-shadow: 0 10px 20px rgba(228, 155, 155, 0.15);
-        }
-
-        /* Delicate Text Shine */
-        @keyframes text-shine {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            100% {
-                background-position: 200% 50%;
-            }
-        }
-
-        .animate-text-shine {
-            background-size: 200% auto;
-            animation: text-shine 4s linear infinite;
-        }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .bg-noise {
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.5'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
-        }
-    </style>
+    <link rel="stylesheet" href="public/css/styles.css">
 </head>
 
 <body
@@ -515,13 +366,13 @@
     <nav
         class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-xl shadow-rose-100/20 dark:shadow-rose-900/10 rounded-full h-20 px-6 flex items-center justify-between transition-all duration-300 hover:bg-white/90 dark:hover:bg-zinc-900/90 group/nav">
         <!-- Logo -->
-        <a href="home_page.html"
+        <a href="index.html"
             class="text-zinc-700 dark:text-zinc-100 font-bold tracking-tighter text-xl uppercase flex items-center gap-3 cursor-pointer group">
             <div class="relative h-16 w-auto flex items-center justify-center">
                 <div
                     class="absolute inset-0 bg-rose-200/50 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <img src="assets/images/Equipe/Logo/logo.png" alt="Logo Ewellin Jordão"
+                <img src="public/images/Equipe/Logo/logo.png" alt="Logo Ewellin Jordão"
                     class="relative h-full w-auto object-contain drop-shadow-sm transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
             </div>
             <div class="flex flex-col leading-none justify-center h-full pt-1">
@@ -534,7 +385,7 @@
         <!-- Links (Desktop) -->
         <div
             class="hidden md:flex items-center gap-1 bg-white/50 dark:bg-zinc-800/50 px-6 py-2 rounded-full border border-white/50 dark:border-white/10 shadow-sm shadow-rose-100/30 dark:shadow-none">
-            <a href="home_page.html"
+            <a href="index.html"
                 class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Início
                 <span
@@ -542,7 +393,7 @@
             </a>
             <a href="playup_page.html"
                 class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
-                PLAYUP! Academy
+                PLAYUP Academy
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
             </a>
@@ -636,13 +487,12 @@
                     class="text-5xl md:text-6xl lg:text-7xl font-bold text-zinc-700 dark:text-zinc-100 tracking-tight leading-[1] mb-6">
                     Aproveite o <br />
                     <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-[#E49B9B] via-[#F5C0C0] to-[#E49B9B] animate-text-shine">PLAYUP!</span>
-                    no Lançamento.
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-[#E49B9B] via-[#F5C0C0] to-[#E49B9B] animate-text-shine">PLAYUP</span>
                 </h1>
 
                 <p class="text-lg text-zinc-500 dark:text-zinc-400 font-light leading-relaxed mb-8 max-w-xl">
-                    Garanta seu acesso completo à metodologia que está revolucionando o mercado de Lash Design com um
-                    desconto exclusivo de lançamento.
+                    Se está começando e se sente perdida ou já trabalha na área, mas ainda não tem segurança no que faz,
+                    aqui você aprende com direção, prática e um caminho claro para evoluir de verdade.
                 </p>
 
                 <!-- Countdown Timer -->
@@ -727,7 +577,7 @@
                         <!-- Video Element (Using same video for demo, user can replace) -->
                         <video id="hero-video" autoplay loop muted playsinline
                             class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105">
-                            <source src="assets/Video/Landing_page.mp4" type="video/mp4">
+                            <source src="public/videos/Landing_page.mp4" type="video/mp4">
                         </video>
 
                         <!-- Overlay Wrapper -->
@@ -784,133 +634,7 @@
         </div>
     </footer>
 
-    <script>
-        lucide.createIcons();
-
-        // Theme Toggle Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-        // Check local storage or system preference
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            themeToggleDarkIcon.classList.remove('hidden');
-        }
-
-        themeToggleBtn.addEventListener('click', function () {
-            // Toggle icons
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-
-            // If is set in local storage
-            if (localStorage.getItem('color-theme')) {
-                if (localStorage.getItem('color-theme') === 'light') {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                }
-            } else {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                }
-            }
-        });
-
-        // Video Interaction Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const videoContainer = document.getElementById('video-container-wrapper');
-            const video = document.getElementById('hero-video');
-            const overlay = document.getElementById('video-overlay');
-            const playBtn = document.getElementById('hero-play-btn');
-
-            if (playBtn && video) {
-                playBtn.addEventListener('click', () => {
-                    // Activate Video
-                    video.muted = false;
-                    video.loop = false;
-                    video.currentTime = 0;
-                    video.controls = true;
-                    video.classList.remove('opacity-90', 'group-hover:scale-105', 'transition-transform');
-                    video.classList.add('opacity-100');
-
-                    // Flatten Container
-                    if (videoContainer) {
-                        videoContainer.classList.remove('rotate-2', 'hover:rotate-0', 'group');
-                        videoContainer.classList.add('rotate-0', 'scale-100');
-                    }
-
-                    // Hide Overlay
-                    overlay.classList.add('opacity-0', 'pointer-events-none');
-                    playBtn.classList.add('pointer-events-none'); // Disable button interaction
-
-                    // Play
-                    video.play();
-                });
-
-                // Reset on End or Pause
-                const resetVideoState = () => {
-                    if (!video.paused && !video.ended) return;
-
-                    video.controls = false;
-                    video.muted = true;
-                    video.loop = true;
-                    video.play().catch(() => { });
-
-                    video.classList.add('opacity-90', 'group-hover:scale-105', 'transition-transform');
-                    video.classList.remove('opacity-100');
-
-                    if (videoContainer) {
-                        videoContainer.classList.add('rotate-2', 'group');
-                        videoContainer.classList.remove('rotate-0', 'scale-100');
-                    }
-
-                    overlay.classList.remove('opacity-0', 'pointer-events-none');
-                    if (playBtn) playBtn.classList.remove('pointer-events-none'); // Re-enable button
-                };
-
-                video.addEventListener('ended', resetVideoState);
-                video.addEventListener('pause', resetVideoState);
-            }
-
-            // Countdown Logic
-            const targetDate = new Date('2026-03-15T23:59:59').getTime();
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-
-            const timer = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                if (distance < 0) {
-                    clearInterval(timer);
-                    // Handle expiration (optional: show originally price info)
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                if (daysEl) daysEl.innerText = String(days).padStart(2, '0');
-                if (hoursEl) hoursEl.innerText = String(hours).padStart(2, '0');
-                if (minutesEl) minutesEl.innerText = String(minutes).padStart(2, '0');
-                if (secondsEl) secondsEl.innerText = String(seconds).padStart(2, '0');
-            }, 1000);
-        });
-    </script>
+    <script src="public/js/main.js" defer></script>
 </body>
 
 </html>

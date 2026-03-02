@@ -7,192 +7,14 @@
     <title>Nosso Espaço | Ewellin Jordão</title>
     <!-- Adjusting paths to point to the sibling directory -->
     <!-- CDN Links for Tailwind, Lucide Icons, and Fonts -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        zinc: {
-                            850: '#1f1f22',
-                            900: '#18181b',
-                            950: '#09090b',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Local Tailwind CSS -->
+    <link rel="stylesheet" href="public/css/tailwind.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #fce7f3;
-            border-radius: 20px;
-        }
-
-        /* Feminine Palette */
-        .bg-cream-pink {
-            background-color: #FFF0F5;
-        }
-
-        .text-rose-brand {
-            color: #db2777;
-        }
-
-        /* Subtle Background Animations */
-        @keyframes float-gentle {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.15;
-            }
-
-            33% {
-                transform: translate(100px, -50px) rotate(10deg);
-                opacity: 0.25;
-            }
-
-            66% {
-                transform: translate(-50px, 50px) rotate(-5deg);
-                opacity: 0.15;
-            }
-
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.15;
-            }
-        }
-
-        @keyframes float-drift {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.1;
-            }
-
-            50% {
-                transform: translate(-80px, -80px) scale(1.1);
-                opacity: 0.2;
-            }
-
-            100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.1;
-            }
-        }
-
-        .animate-float-gentle {
-            animation: float-gentle 20s infinite ease-in-out;
-        }
-
-        .animate-float-drift {
-            animation: float-drift 25s infinite ease-in-out reverse;
-        }
-
-        /* Modern Button Shimmer */
-        @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-
-        .btn-shimmer {
-            background: linear-gradient(90deg, #E49B9B 0%, #F5C0C0 50%, #E49B9B 100%);
-            background-size: 200% 100%;
-            transition: all 0.3s ease;
-        }
-
-        .btn-shimmer:hover {
-            animation: shimmer 3s infinite linear;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(228, 155, 155, 0.4);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.8);
-            border-color: #fbcfe8;
-            box-shadow: 0 10px 20px rgba(228, 155, 155, 0.15);
-        }
-
-        /* Delicate Text Shine */
-        @keyframes text-shine {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            100% {
-                background-position: 200% 50%;
-            }
-        }
-
-        .animate-text-shine {
-            background-size: 200% auto;
-            animation: text-shine 4s linear infinite;
-        }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .bg-noise {
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.5'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .delay-100 {
-            animation-delay: 100ms;
-        }
-
-        .delay-200 {
-            animation-delay: 200ms;
-        }
-
-        .delay-300 {
-            animation-delay: 300ms;
-        }
-
-        .delay-500 {
-            animation-delay: 500ms;
-        }
-    </style>
+    <link rel="stylesheet" href="public/css/styles.css">
 </head>
 
 <body
@@ -220,7 +42,7 @@
         class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-xl shadow-rose-100/20 dark:shadow-rose-900/10 rounded-full h-20 px-6 flex items-center justify-between transition-all duration-300 hover:bg-white/90 dark:hover:bg-zinc-900/90 group/nav">
 
         <!-- Logo -->
-        <a href="home_page.html"
+        <a href="index.html"
             class="text-zinc-700 dark:text-zinc-100 font-bold tracking-tighter text-xl uppercase flex items-center gap-3 cursor-pointer group">
 
             <!-- Logo Image Container with Animation -->
@@ -231,7 +53,7 @@
                 </div>
 
                 <!-- Logo Image -->
-                <img src="assets/images/Equipe/Logo/logo.png" alt="Logo Ewellin Jordão"
+                <img src="public/images/Equipe/Logo/logo.png" alt="Logo Ewellin Jordão"
                     class="relative h-full w-auto object-contain drop-shadow-sm transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
             </div>
 
@@ -245,7 +67,7 @@
         <!-- Links (Desktop) -->
         <div
             class="hidden md:flex items-center gap-1 bg-white/50 dark:bg-zinc-800/50 px-6 py-2 rounded-full border border-white/50 dark:border-white/10 shadow-sm shadow-rose-100/30 dark:shadow-none">
-            <a href="home_page.html"
+            <a href="index.html"
                 class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Início
                 <span
@@ -253,7 +75,7 @@
             </a>
             <a href="playup_page.html"
                 class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
-                PLAYUP! Academy
+                PLAYUP Academy
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
             </a>
@@ -341,10 +163,10 @@
         </button>
 
         <!-- Links -->
-        <a href="home_page.html"
+        <a href="index.html"
             class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">Início</a>
         <a href="playup_page.html"
-            class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">PLAYUP!
+            class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">PLAYUP
             Academy</a>
         <a href="sobre.html"
             class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">Sobre</a>
@@ -407,7 +229,7 @@
                 <p class="text-zinc-500 dark:text-zinc-400">Profissionais apaixonadas e altamente
                     qualificadas
                     pelo
-                    método PLAYUP!</p>
+                    método PLAYUP</p>
             </div>
 
 
@@ -418,22 +240,17 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-tr from-rose-200 to-transparent rounded-full -rotate-6 group-hover:rotate-6 transition-transform duration-500">
                         </div>
-                        <img src="assets\images\Equipe\Ewellin.jpg" alt="Ewellin Jordão"
+                        <img src="public/images\Equipe\Ewellin.jpg" alt="Ewellin Jordão"
                             class="w-full h-full object-cover rounded-full border-4 border-white shadow-lg relative z-10">
                     </div>
                     <h3 class="text-xl font-bold text-zinc-600 dark:text-zinc-100 mb-1">Ewellin
                         Jordão</h3>
                     <p class="text-[#E49B9B] text-sm font-medium uppercase tracking-wider mb-3">
-                        CEO
-                        & Lash
-                        Designer
+                        FOUNDER & METHOD CREATOR
                     </p>
                     <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed px-4">
-                        Especialista em Volume Russo e efeitos artísticos. Dedicada a criar
-                        olhares
-                        marcantes
-                        com
-                        delicadeza.
+                        Certificada internacionalmente e criadora do Método PLAYUP.
+                        Responsável pelo desenvolvimento técnico e formação de profissionais.
                     </p>
                 </div>
 
@@ -443,7 +260,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-tr from-rose-200 to-transparent rounded-full rotate-3 group-hover:-rotate-3 transition-transform duration-500">
                         </div>
-                        <img src="assets\images\Equipe\Luana.jpeg" alt="Luana"
+                        <img src="public/images\Equipe\Luana.jpeg" alt="Luana"
                             class="w-full h-full object-cover rounded-full border-4 border-white shadow-lg relative z-10">
                     </div>
                     <h3 class="text-xl font-bold text-zinc-600 dark:text-zinc-100 mb-1">Luana
@@ -453,10 +270,8 @@
                         Designer
                     </p>
                     <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed px-4">
-                        Focada em naturalidade e saúde dos fios. Seu atendimento é conhecido
-                        pela
-                        leveza e
-                        precisão.
+                        Especialista em naturalidade, precisão e retenção.
+                        Profissional sênior com ampla experiência em atendimento.
                     </p>
                 </div>
 
@@ -466,7 +281,7 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-tr from-rose-200 to-transparent rounded-full -rotate-3 group-hover:rotate-3 transition-transform duration-500">
                         </div>
-                        <img src="assets\images\Equipe\Jady.jpeg" alt="Jady"
+                        <img src="public/images\Equipe\Jady.jpeg" alt="Jady"
                             class="w-full h-full object-cover rounded-full border-4 border-white shadow-lg relative z-10">
                     </div>
                     <h3 class="text-xl font-bold text-zinc-600 dark:text-zinc-100 mb-1">Jady
@@ -474,12 +289,10 @@
                     </h3>
                     <p class="text-[#E49B9B] text-sm font-medium uppercase tracking-wider mb-3">
                         Brow
-                        & Lash</p>
+                        & LashDesigner</p>
                     <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed px-4">
-                        Expert em sobrancelhas e cílios. Completa a experiência do olhar
-                        perfeito
-                        com design de
-                        sobrancelhas.
+                        Especialista em design de sobrancelhas e extensão de cílios.
+                        Integra técnica e harmonização para valorizar cada olhar.
                     </p>
                 </div>
 
@@ -489,22 +302,19 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-tr from-rose-200 to-transparent rounded-full rotate-6 group-hover:-rotate-6 transition-transform duration-500">
                         </div>
-                        <img src="assets\images\Equipe\Florencia.png" alt="Florencia"
+                        <img src="public/images\Equipe\Florencia.jpeg" alt="Florência"
                             class="w-full h-full object-cover rounded-full border-4 border-white shadow-lg relative z-10">
                     </div>
                     <h3 class="text-xl font-bold text-zinc-600 dark:text-zinc-100 mb-1">
-                        Florencia
+                        Florência
                         Coronel</h3>
                     <p class="text-[#E49B9B] text-sm font-medium uppercase tracking-wider mb-3">
                         Lash
                         Designer
                     </p>
                     <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed px-4">
-                        Especialista em Volume Russo e efeitos artísticos. Dedicada a criar
-                        olhares
-                        marcantes
-                        com
-                        delicadeza.
+                        Especialista em naturalidade e aplicação com delicadeza.
+                        Reconhecida pelo acabamento leve e técnica refinada.
                     </p>
                 </div>
             </div>
@@ -554,6 +364,12 @@
                 <div
                     class="flex items-center gap-3 bg-white dark:bg-zinc-800 px-6 py-3 rounded-full shadow-sm border border-rose-100 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 text-sm font-medium hover:border-rose-300 dark:hover:border-rose-400 transition-colors cursor-default">
                     <span class="w-2 h-2 rounded-full bg-[#E49B9B]"></span>
+                    Lash Lifiting
+                </div>
+                <!-- Service Item -->
+                <div
+                    class="flex items-center gap-3 bg-white dark:bg-zinc-800 px-6 py-3 rounded-full shadow-sm border border-rose-100 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 text-sm font-medium hover:border-rose-300 dark:hover:border-rose-400 transition-colors cursor-default">
+                    <span class="w-2 h-2 rounded-full bg-[#E49B9B]"></span>
                     Manutenção & Remoção
                 </div>
             </div>
@@ -576,7 +392,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Portfolio Item 1 -->
                 <div class="group relative rounded-2xl overflow-hidden shadow-lg h-80 fade-in-up delay-100">
-                    <img src="assets\images\Equipe\resultados\resultado1.jpeg" alt="Efeito Wispy"
+                    <img src="public/images\Equipe\resultados\resultado1.jpeg" alt="Efeito Wispy"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -589,7 +405,7 @@
 
                 <!-- Portfolio Item 2 -->
                 <div class="group relative rounded-2xl overflow-hidden shadow-lg h-80 fade-in-up delay-200">
-                    <img src="assets\images\Equipe\resultados\resultado2.jpeg" alt="Brow Lamination"
+                    <img src="public/images\Equipe\resultados\resultado2.jpeg" alt="Brow Lamination"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -603,7 +419,7 @@
 
                 <!-- Portfolio Item 3 -->
                 <div class="group relative rounded-2xl overflow-hidden shadow-lg h-80 fade-in-up delay-300">
-                    <img src="assets\images\Equipe\resultados\resultado3.jpeg" alt="Volume Brasileiro"
+                    <img src="public/images\Equipe\resultados\resultado3.jpeg" alt="Volume Brasileiro"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -616,7 +432,7 @@
 
                 <!-- Portfolio Item 4 -->
                 <div class="group relative rounded-2xl overflow-hidden shadow-lg h-80 fade-in-up delay-100">
-                    <img src="assets\images\Equipe\resultados\resultado4.jpeg" alt="Volume Russo"
+                    <img src="public/images\Equipe\resultados\resultado4.jpeg" alt="Volume Russo"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -630,7 +446,7 @@
 
                 <!-- Portfolio Item 5 -->
                 <div class="group relative rounded-2xl overflow-hidden shadow-lg h-80 fade-in-up delay-200">
-                    <img src="assets\images\Equipe\resultados\resultado5.jpeg" alt="Efeito Molhado"
+                    <img src="public/images\Equipe\resultados\resultado5.jpeg" alt="Efeito Molhado"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -644,7 +460,7 @@
 
                 <!-- Portfolio Item 6 -->
                 <div class="group relative rounded-2xl overflow-hidden shadow-lg h-80 fade-in-up delay-300">
-                    <img src="assets\images\Equipe\resultados\resultado6.jpeg" alt="Design de Sobrancelhas"
+                    <img src="public/images\Equipe\resultados\resultado6.jpeg" alt="Design de Sobrancelhas"
                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
@@ -674,10 +490,10 @@
                     esperando por você
                 </h2>
                 <p class="text-zinc-500 dark:text-zinc-400 mb-8 leading-relaxed">
-                    Nosso espaço foi idealizado para proporcionar conforto e bem-estar. Localizado
-                    no coração
-                    dos
-                    Jardins, oferecemos um ambiente exclusivo para o seu momento de beleza.
+                    Nosso espaço foi pensado para oferecer conforto, exclusividade e uma experiência de atendimento
+                    personalizada.
+                    Localizado em Coimbra, criamos um ambiente preparado para valorizar cada detalhe do seu olhar.
+
                 </p>
                 <div class="space-y-6">
                     <div class="flex items-start gap-4">
@@ -704,10 +520,9 @@
                         <div>
                             <h4 class="font-bold text-zinc-600 dark:text-zinc-100">Horário de
                                 Atendimento</h4>
-                            <p class="text-zinc-500 dark:text-zinc-400 text-sm">Segunda a Sexta: 09h
+                            <p class="text-zinc-500 dark:text-zinc-400 text-sm">Segunda a Sábado: 08h
                                 às
-                                19h<br>Sábados:
-                                09h às 16h</p>
+                                20h.</p>
                         </div>
                     </div>
                 </div>
@@ -806,80 +621,7 @@
         </div>
     </footer>
 
-    <script>
-        lucide.createIcons();
-
-        // Mobile Menu Logic
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        function toggleMenu() {
-            if (mobileMenu) {
-                mobileMenu.classList.toggle('translate-x-full');
-                if (!mobileMenu.classList.contains('translate-x-full')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
-                }
-            }
-        }
-
-        if (mobileMenuBtn && closeMenuBtn) {
-            mobileMenuBtn.addEventListener('click', toggleMenu);
-            closeMenuBtn.addEventListener('click', toggleMenu);
-        }
-
-        if (mobileMenu) {
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('translate-x-full');
-                    document.body.style.overflow = '';
-                });
-            });
-        }
-
-        // Theme Toggle Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-        function updateTheme() {
-            const isDark = localStorage.getItem('color-theme') === 'dark' ||
-                (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-            if (isDark) {
-                document.documentElement.classList.add('dark');
-                if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
-                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
-            } else {
-                document.documentElement.classList.remove('dark');
-                if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
-                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
-            }
-        }
-
-        // Initial check
-        updateTheme();
-
-        // Listen for OS changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            if (!('color-theme' in localStorage)) {
-                updateTheme();
-            }
-        });
-
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', function () {
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.setItem('color-theme', 'light');
-                } else {
-                    localStorage.setItem('color-theme', 'dark');
-                }
-                updateTheme();
-            });
-        }
-    </script>
+    <script src="public/js/main.js" defer></script>
 </body>
 
 </html>

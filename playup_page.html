@@ -331,184 +331,17 @@
         })();</script>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>PLAYUP! Academy | Ewellin Jordão</title>
+    <title>PLAYUP Academy | Ewellin Jordão</title>
     <!-- Adjusting paths to point to the sibling directory -->
     <!-- CDN Links for Tailwind, Lucide Icons, and Fonts -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        zinc: {
-                            850: '#1f1f22',
-                            900: '#18181b',
-                            950: '#09090b',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Local Tailwind CSS -->
+    <link rel="stylesheet" href="public/css/tailwind.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #fce7f3;
-            border-radius: 20px;
-        }
-
-        /* Feminine Palette */
-        .bg-cream-pink {
-            background-color: #FFF0F5;
-        }
-
-        .text-rose-brand {
-            color: #db2777;
-        }
-
-        /* Subtle Background Animations */
-        @keyframes float-gentle {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.4;
-            }
-
-            33% {
-                transform: translate(100px, -50px) rotate(10deg);
-                opacity: 0.6;
-            }
-
-            66% {
-                transform: translate(-50px, 50px) rotate(-5deg);
-                opacity: 0.4;
-            }
-
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.4;
-            }
-        }
-
-        @keyframes float-drift {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.3;
-            }
-
-            50% {
-                transform: translate(-80px, -80px) scale(1.1);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.3;
-            }
-        }
-
-        .animate-float-gentle {
-            animation: float-gentle 20s infinite ease-in-out;
-        }
-
-        .animate-float-drift {
-            animation: float-drift 25s infinite ease-in-out reverse;
-        }
-
-        /* Modern Button Shimmer */
-        @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-
-        .btn-shimmer {
-            background: linear-gradient(90deg, #E49B9B 0%, #F5C0C0 50%, #E49B9B 100%);
-            background-size: 200% 100%;
-            transition: all 0.3s ease;
-        }
-
-        .btn-shimmer:hover {
-            animation: shimmer 3s infinite linear;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(228, 155, 155, 0.4);
-        }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 240, 245, 0.6);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
-            transition: all 0.3s ease;
-        }
-
-        .dark .glass-card {
-            background: rgba(24, 24, 27, 0.6);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.8);
-            border-color: #fbcfe8;
-            box-shadow: 0 10px 20px rgba(228, 155, 155, 0.15);
-        }
-
-        /* Delicate Text Shine */
-        @keyframes text-shine {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            100% {
-                background-position: 200% 50%;
-            }
-        }
-
-        .animate-text-shine {
-            background-size: 200% auto;
-            animation: text-shine 4s linear infinite;
-        }
-
-        /* Button Hover Scales */
-        .hover-scale-sm:hover {
-            transform: scale(1.02);
-        }
-
-        .bg-noise {
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.5'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
-        }
-    </style>
+    <link rel="stylesheet" href="public/css/styles.css">
 </head>
 
 <body
@@ -533,7 +366,7 @@
         class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-xl shadow-rose-100/20 dark:shadow-rose-900/10 rounded-full h-20 px-6 flex items-center justify-between transition-all duration-300 hover:bg-white/90 dark:hover:bg-zinc-900/90 group/nav">
 
         <!-- Logo -->
-        <a href="home_page.html"
+        <a href="index.html"
             class="text-zinc-700 dark:text-zinc-100 font-bold tracking-tighter text-xl uppercase flex items-center gap-3 cursor-pointer group">
 
             <!-- Logo Image Container with Animation -->
@@ -544,7 +377,7 @@
                 </div>
 
                 <!-- Logo Image -->
-                <img src="assets/images/Equipe/Logo/logo.png" alt="Logo Ewellin Jordão"
+                <img src="public/images/Equipe/Logo/logo.png" alt="Logo Ewellin Jordão"
                     class="relative h-full w-auto object-contain drop-shadow-sm transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3">
             </div>
 
@@ -558,15 +391,15 @@
         <!-- Links (Desktop) -->
         <div
             class="hidden md:flex items-center gap-1 bg-white/50 dark:bg-zinc-800/50 px-6 py-2 rounded-full border border-white/50 dark:border-white/10 shadow-sm shadow-rose-100/30 dark:shadow-none">
-            <a href="home_page.html"
+            <a href="index.html"
                 class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
                 Início
                 <span
                     class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-rose-400 group-hover:w-1/2 transition-all duration-300 rounded-full opacity-0 group-hover:opacity-100"></span>
             </a>
             <a href="playup_page.html"
-                class="px-4 py-2 text-sm font-medium text-rose-600 bg-rose-50 transition-colors relative group rounded-full">
-                PLAYUP! Academy
+                class="px-4 py-2 text-sm font-medium text-rose-600 bg-rose-50 rounded-full transition-colors relative group">
+                PLAYUP Academy
             </a>
             <a href="sobre.html"
                 class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors relative group">
@@ -654,10 +487,10 @@
         </button>
 
         <!-- Links -->
-        <a href="home_page.html"
+        <a href="index.html"
             class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">Início</a>
         <a href="playup_page.html"
-            class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">PLAYUP!
+            class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">PLAYUP
             Academy</a>
         <a href="sobre.html"
             class="text-2xl font-bold text-zinc-800 dark:text-zinc-100 hover:text-rose-500 transition-colors">Sobre</a>
@@ -698,7 +531,7 @@
                 class="text-4xl md:text-6xl font-bold text-zinc-700 dark:text-zinc-100 tracking-tight leading-tight mb-6">
                 Descubra o universo <br />
                 <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-[#E49B9B] via-[#F5C0C0] to-[#E49B9B] animate-text-shine">PLAYUP!
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-[#E49B9B] via-[#F5C0C0] to-[#E49B9B] animate-text-shine">PLAYUP
                     Academy</span>
             </h1>
             <p class="text-lg text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto font-light leading-relaxed">
@@ -720,7 +553,7 @@
                 <!-- Video Element -->
                 <video id="playup-video" autoplay loop muted playsinline
                     class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105">
-                    <source src="assets/Video/Landing_page.mp4" type="video/mp4">
+                    <source src="public/videos/Landing_page.mp4" type="video/mp4">
                 </video>
 
                 <!-- Overlay Wrapper -->
@@ -760,10 +593,11 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="sparkles" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Fundamentos & Visagismo</h3>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Entenda a anatomia dos olhos,
-                        biossegurança e como
-                        criar designs personalizados para cada tipo de rosto.</p>
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Tendências 2026 & Técnicas
+                        Avançadas</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Spikes, curvatura M, efeito FOX,
+                        efeito molhado e fios tecnológicos fazem parte do seu repertório. Você domina o que está em alta
+                        para se posicionar à frente do mercado.</p>
                 </div>
 
                 <!-- Module 2 -->
@@ -772,10 +606,12 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="move" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Técnica Fio a Fio Clássica</h3>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">A base de tudo. Aprenda
-                        acoplagem perfeita,
-                        isolamento e direcionalidade para um acabamento impecável.</p>
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Mapeamentos & Construção de
+                        Design</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Aprenda a escolher e executar o
+                        mapping
+                        ideal para cada cliente, construir top line limpa e trabalhar camadas com precisão. Aqui você
+                        deixa de aplicar cílios e passa a construir olhares personalizados.</p>
                 </div>
 
                 <!-- Module 3 -->
@@ -784,10 +620,11 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="layers" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Volume Russo & Mega Volume</h3>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Domine a criação de fans
-                        artesanais e técnicas
-                        avançadas para entregar volume e densidade com segurança.</p>
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Retenção Blindada & Fundamentos
+                        Técnicos</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Domine pH, adesivo, isolamento,
+                        acoplagem e direcionamento do fio para alcançar retenção superior e acabamento impecável.
+                        A base técnica que sustenta resultados duradouros e eleva o valor do seu trabalho.</p>
                 </div>
 
                 <!-- Module 4 -->
@@ -796,10 +633,13 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="shield-check" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Retention Mastery</h3>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">O segredo da durabilidade.
-                        Descubra como fazer as
-                        extensões durarem mais de 30 dias intactas.</p>
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Atendimento, Anamnese &
+                        Biossegurança Real</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Você aprende a conduzir o
+                        atendimento com segurança e estratégia, desde a ficha de anamnese até a higienização
+                        correta.
+                        Um processo estruturado que gera confiança, profissionalismo e autoridade no primeiro
+                        contato.</p>
                 </div>
 
                 <!-- Module 5 -->
@@ -808,10 +648,12 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="trending-up" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Marketing & Vendas</h3>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Aprenda a se posicionar, atrair
-                        clientes
-                        qualificados e lotar sua agenda usando o Instagram.</p>
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Mentalidade & Identidade
+                        Profissional</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Antes da técnica, você constrói
+                        a base da sua carreira. Aqui você desenvolve identidade,
+                        constância e posicionamento para sair da tentativa e erro e assumir postura de profissional de
+                        elite desde o primeiro dia.</p>
                 </div>
 
                 <!-- Module 6 -->
@@ -820,10 +662,12 @@
                         class="w-12 h-12 rounded-2xl bg-rose-100/50 flex items-center justify-center text-[#E49B9B] mb-6">
                         <i data-lucide="camera" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Fotografia & Edição</h3>
-                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Como tirar fotos que vendem e
-                        editar seu portfólio
-                        para encantar clientes à primeira vista.</p>
+                    <h3 class="text-xl font-bold text-zinc-800 dark:text-zinc-100 mb-3">Ecossistema, Posicionamento &
+                        Mercado</h3>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">O PLAYUP vai além da técnica:
+                        você recebe direcionamento estratégico de carreira,
+                        visão de mercado e acesso a um ecossistema que forma profissionais reconhecidas, não apenas
+                        aplicadoras.</p>
                 </div>
             </div>
         </div>
@@ -855,20 +699,22 @@
                     </span>
 
                     <h2 class="text-4xl md:text-6xl font-bold text-zinc-700 dark:text-zinc-100 mb-6 tracking-tight">
-                        Pronta para transformar <br /> <span
-                            class="bg-clip-text text-transparent bg-gradient-to-r from-[#E49B9B] to-[#d48a8a]">sua
-                            vida?</span>
+                        Você ainda duvida da sua <br /> <span
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-[#E49B9B] to-[#d48a8a]">própria
+                            técnica?</span>
                     </h2>
 
                     <p class="text-zinc-500 dark:text-zinc-400 text-lg mb-10 max-w-xl mx-auto font-light">
-                        Junte-se à elite do Lash Design. O método PLAYUP já formou mais de 1.000 profissionais de
-                        sucesso.
+                        Entre inseguranças, falhas na retenção e falta de direção, o PLAYUP transforma tentativa e erro
+                        em método,
+                        trazendo estrutura, clareza e segurança para cada etapa do atendimento. Seja você iniciante ou
+                        já atuando na área.
                     </p>
 
                     <div class="relative inline-flex group/btn hover-scale-sm transition-transform duration-300">
                         <a href="#"
                             class="btn-shimmer relative inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white rounded-full transition-transform">
-                            Quero Garantir Minha Vaga
+                            Quero dominar minha técnica
                             <i data-lucide="arrow-right"
                                 class="ml-2 w-5 h-5 group-hover/btn:translate-x-1 transition-transform"></i>
                         </a>
@@ -973,125 +819,7 @@
             </div>
         </div>
     </footer>
-    <script>
-        lucide.createIcons();
-
-        // Mobile Menu Logic
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        function toggleMenu() {
-            if (mobileMenu) {
-                mobileMenu.classList.toggle('translate-x-full');
-                if (!mobileMenu.classList.contains('translate-x-full')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
-                }
-            }
-        }
-
-        if (mobileMenuBtn && closeMenuBtn) {
-            mobileMenuBtn.addEventListener('click', toggleMenu);
-            closeMenuBtn.addEventListener('click', toggleMenu);
-        }
-
-        if (mobileMenu) {
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('translate-x-full');
-                    document.body.style.overflow = '';
-                });
-            });
-        }
-
-        // Theme Toggle Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-        function updateTheme() {
-            const isDark = localStorage.getItem('color-theme') === 'dark' ||
-                (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-            if (isDark) {
-                document.documentElement.classList.add('dark');
-                if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
-                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
-            } else {
-                document.documentElement.classList.remove('dark');
-                if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
-                if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
-            }
-        }
-
-        // Initial check
-        updateTheme();
-
-        // Listen for OS changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            if (!('color-theme' in localStorage)) {
-                updateTheme();
-            }
-        });
-
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', function () {
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.setItem('color-theme', 'light');
-                } else {
-                    localStorage.setItem('color-theme', 'dark');
-                }
-                updateTheme();
-            });
-        }
-
-        // Playup Video Interaction
-        document.addEventListener('DOMContentLoaded', () => {
-            const video = document.getElementById('playup-video');
-            const overlay = document.getElementById('playup-video-overlay');
-            const playBtn = document.getElementById('playup-play-btn');
-            const wrapper = document.getElementById('playup-video-wrapper');
-
-            if (video && playBtn) {
-                const resetVideo = () => {
-                    // If it's just paused but not ended, we only reset if it was manually paused to stop watching
-                    // But for simplicity/consistency with home page:
-                    if (!video.paused && !video.ended) return;
-
-                    video.controls = false;
-                    video.muted = true;
-                    video.loop = true;
-                    video.play().catch(() => { });
-
-                    if (overlay) overlay.classList.remove('opacity-0', 'pointer-events-none');
-                    video.classList.add('opacity-90', 'group-hover:scale-105');
-                    video.classList.remove('opacity-100');
-
-                    if (wrapper) {
-                        // wrapper.classList.add('group'); // restore group hover effects if needed
-                    }
-                };
-
-                playBtn.addEventListener('click', () => {
-                    video.muted = false;
-                    video.loop = false;
-                    video.currentTime = 0;
-                    video.controls = true;
-                    video.classList.remove('opacity-90', 'group-hover:scale-105');
-                    video.classList.add('opacity-100');
-
-                    if (overlay) overlay.classList.add('opacity-0', 'pointer-events-none');
-
-                    video.play();
-                });
-
-                video.addEventListener('ended', resetVideo);
-                video.addEventListener('pause', resetVideo);
-            }
-        });
-    </script>
+    <script src="public/js/main.js" defer></script>
 </body>
 
 </html>
