@@ -105,6 +105,12 @@ body {
     box-shadow: 0 10px 20px rgba(228, 155, 155, 0.15);
 }
 
+.dark .glass-card:hover {
+    background: rgba(39, 39, 42, 0.6); /* Cor equivalente ao dark:bg-zinc-800 com leve transparência */
+    border-color: rgba(228, 155, 155, 0.1); /* Borda mais suave e discreta */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombra mais apropriada para fundo escuro */
+}
+
 /* Delicate Text Shine */
 @keyframes text-shine {
     0% {
