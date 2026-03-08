@@ -711,14 +711,54 @@
                         já atuando na área.
                     </p>
 
-                    <div class="relative inline-flex group/btn hover-scale-sm transition-transform duration-300">
-                        <a href="https://pay.kiwify.com/AGt5qfY" target="_blank"
-                            class="btn-shimmer relative inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white rounded-full transition-transform">
-                            Quero dominar minha técnica
-                            <i data-lucide="arrow-right"
-                                class="ml-2 w-5 h-5 group-hover/btn:translate-x-1 transition-transform"></i>
+                    <div class="relative inline-flex group/btn transition-transform duration-300">
+                        <!-- Botão bloqueado (antes do final da live) -->
+                        <button id="checkout-btn-locked" type="button"
+                            class="btn-shimmer relative inline-flex items-center justify-center px-8 md:px-10 py-4 md:py-5 text-base md:text-lg font-bold text-white rounded-full transition-all opacity-90 cursor-not-allowed shadow-lg shadow-rose-200/30 hover:scale-[1.02]"
+                            onclick="alert('Valor promocional e vagas disponíveis apenas para quem está acompanhando a nossa live até o fim!')">
+                            <i data-lucide="lock" class="mr-2 w-5 h-5"></i>
+                            Acesso restrito até o fim da live
+                        </button>
+
+                        <!-- Botão liberado (oculto por padrão) -->
+                        <a href="https://pay.kiwify.com/AGt5qfY" target="_blank" id="checkout-btn-unlocked" style="display: none;"
+                            class="btn-shimmer relative inline-flex items-center justify-center px-8 md:px-10 py-4 md:py-5 text-base md:text-lg font-bold text-white rounded-full transition-transform hover:-translate-y-1 shadow-xl shadow-rose-300/40">
+                            Quero transformar minha técnica e meus resultados
+                            <i data-lucide="sparkles"
+                                class="ml-2 w-5 h-5 group-hover/btn:rotate-12 group-hover/btn:scale-110 transition-transform"></i>
                         </a>
                     </div>
+
+                    <!-- Script para controlar a liberação do botão -->
+                    <script>
+                        (function() {
+                            // 👇 CONFIGURAÇÃO: Altere aqui a data e hora do término da live!
+                            // Formato: AAAA-MM-DDTHH:MM:SS (ex: 2026-03-08T22:00:00 para 8 de Março às 22:00)
+                            const dataFimLive = new Date('2026-03-08T22:00:00').getTime();
+
+                            function atualizarBotao() {
+                                const agora = new Date().getTime();
+                                const lockedBtn = document.getElementById('checkout-btn-locked');
+                                const unlockedBtn = document.getElementById('checkout-btn-unlocked');
+                                
+                                // Opcional: Truque para testar ou liberar manualmente adicionando ?liberar=1 ao final do link
+                                const urlParams = new URLSearchParams(window.location.search);
+                                const liberado = urlParams.get('liberar') === '1';
+
+                                if (agora >= dataFimLive || liberado) {
+                                    if(lockedBtn) lockedBtn.style.display = 'none';
+                                    if(unlockedBtn) unlockedBtn.style.display = 'inline-flex';
+                                } else {
+                                    if(lockedBtn) lockedBtn.style.display = 'inline-flex';
+                                    if(unlockedBtn) unlockedBtn.style.display = 'none';
+                                }
+                            }
+
+                            // Executa imediatamente e depois a cada 1 segundo
+                            atualizarBotao();
+                            setInterval(atualizarBotao, 1000);
+                        })();
+                    </script>
 
                     <div
                         class="mt-8 flex items-center justify-center gap-6 text-xs font-medium text-zinc-400 uppercase tracking-widest">
